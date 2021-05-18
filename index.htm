@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Simple Json - Borsuk Software</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/simpleJson.js"></script>
+    <link rel="stylesheet" href="css/simpleJson.css" />
+    <script language="javascript">
+        $(document).ready(function () {
+            var o = { val1: "bob", val2: false, nestedObj: { val3: "ug" }};
+            try {
+                $("#simpleUseCase").empty().simpleJson({ jsonObject: o });
+            } catch (e) {
+                $("#simpleUseCase").empty().append("Exception caught running plugin : " + ex);
+                alert(e);
+            }
+
+            $("#dynamicJson-process").click(function () {
+                try {
+                    $("#dynamicJson-output").empty();
+                    var o = $("#dynamicJson").val();
+					var processedObject = JSON.parse(o);
+                    $("#dynamicJson-output").simpleJson({ jsonObject: processedObject });
+
+                } catch (ex) {
+                    alert("Unable to process json: " + ex);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <h1>Simple Json</h1>
+
+    <h2>Simple Use-case - text</h2>
+
+    <p>
+        <b>Input</b>
+        <pre>var o = { val1: "bob", val2: false, nestedObj: { val3: "ug" }};
+$("#simpleUseCase").empty().simpleJson({ jsonObject: o });</pre>
+
+        <b>Output</b>
+        <div id="simpleUseCase" ></div>
+    </p>
+
+    <h2>Test</h2>
+
+    <textarea id="dynamicJson" style="width: 700px;height: 400px;">{ &quot;val1&quot;: &quot;bob&quot;, &quot;array&quot;: [1,2,3,4, {}, &quot;billy&quot;, { &quot;nested&quot;: &quot;ogg&quot;}] }</textarea>
+    <button id="dynamicJson-process" >Run plugin</button><br />
+    <div id="dynamicJson-output"></div>
+
+</body>
+</html>
